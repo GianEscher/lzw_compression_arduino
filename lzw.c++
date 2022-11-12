@@ -7,21 +7,45 @@
 using namespace std;
 
 int main(){
-    map<int, char> dictionary;
+
+
+}
+
+string getString(char c){
+    string s(1,c);
+    return s;
+}
+    
+
+list<int> encoder(string message){
+
+    map<string, int> dictionary;
     int size = 256;
     
     for(int i=0; i<256; i++){
-        dictionary.insert(pair<int, char>(i, char(i)));
+        dictionary.insert(pair<string, int>(getString(char(i)),i));
     }
-}
 
-int *encoder(string message){
-
-    list<int> result;
+    string foundChars = "";
+    static list<int> result;
     for(auto c: message){
-        
+
+        string charsToAdd = foundChars + c;
+
+        if(dictionary.count(charsToAdd) == 1){
+            foundChars = charsToAdd;
+        }else{
+            result.push_back(dictionary[foundChars]);
+            dictionary.insert(pair<string,int>(charsToAdd,size++));
+            foundChars = c;
+        }
     }
-    return 0;
+
+    if (foundChars.compare("") != 0){
+        result.push_back(dictionary[foundChars]);
+    }
+
+    return result;
 }
 
 
