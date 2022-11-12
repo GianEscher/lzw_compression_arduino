@@ -1,13 +1,27 @@
 #include <map>
 #include <list>
+#include <iostream>
 
 
 //remember that this line removes the need for using std:: before evr single
 //std function written here
 using namespace std;
 
-int main(){
 
+list<int> encoder(string message);
+
+int main(){
+    string text; 
+    cout << "insira a mensagem"<<endl;
+    cin >> text;
+
+    
+    
+    list <int> show = encoder(text);
+    list <int> :: iterator iter;
+    for(iter = show.begin(); iter != show.end(); iter++ ){
+        cout<<*iter<<endl;
+    }
 
 }
 
