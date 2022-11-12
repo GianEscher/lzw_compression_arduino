@@ -1,13 +1,28 @@
 #include <map>
+#include <list>
 
+
+//remember that this line removes the need for using std:: before evr single
+//std function written here
 using namespace std;
 
 int main(){
     map<int, char> dictionary;
-    map<int, char> :: iterator iter;
-
-    for (iter = dictionary.begin(); iter != dictionary.end(); iter++){
-        
+    int size = 256;
+    
+    for(int i=0; i<256; i++){
+        dictionary.insert(pair<int, char>(i, char(i)));
     }
 }
+
+int *encoder(string message){
+
+    list<int> result;
+    for(auto c: message){
+        
+    }
+    return 0;
+}
+
+
 
