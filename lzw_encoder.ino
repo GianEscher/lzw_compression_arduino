@@ -32,6 +32,7 @@ void loop(){
     for(int i = 0; i < rlen; i++){
 
       	String charsToAdd = foundChars + buf[i];
+        Serial.println(charsToAdd);
 
         if(charsToAdd.length()==1){
 
@@ -68,7 +69,11 @@ void loop(){
     }
     
     if(foundChars.length()>0){
-      result[resultIndex] = indexToAdd; //we dont need to reset resultIndex here, since it'll be declared again in the next encode() call
+      if(foundChars.length()==1){
+        result[resultIndex] = (int) foundChars[0];
+      }else if(foundChars.length()>1){
+        result[resultIndex] = indexToAdd;
+      }
     }
     
     for(int i = 0; i<=resultIndex; i++){
@@ -79,12 +84,8 @@ void loop(){
 
   }
  
-  	
-
 }
  
-
-/*void encoder(){
 
   //A BUFFER OF 100 BYTES ALLOWS MESSAGES OF 100 BYTES TO BE COMPRESSED
   //IF THERES NO COMPRESSION, THAT IS, IF ALL SYMBOLS IN THE MESSAGE ARE DIFFERENT, THEN THE LONGEST RESULT POSSIBLE HAS 100 BYTES
@@ -98,46 +99,11 @@ void loop(){
   //THIS WAY, CODES WITH HIGH VARIATION RATES WILL FILL THE INDEXES QUICKLY, BUT WILL BE REPLACED AS QUICKLY THEY WERE FILLED
   //SINCE LZW USES REVERSE ENGINEERING OF THE ENCODING TO DECIPHER THE COMPRESSED MESSAGE ON THE DECODER PART, IT SHOULDNT
   //SHOW ANY PROBLEMS RELATED TO SYNCHRONIZING CODES ALONG REPETITIONS AND REPLACEMENTS
-
-    //std::map<string, int> dictionary;
-    
-    //BUILDING ASCII "DICTIONARY"
     
 
     
     
-  
-    //THE REMAING 256 INDEXES ARE RESERVED FOR CUSTOM LZW SYMBOLS
 
-    
-    //static list<int> result;
-    
-        
-        /*
-        if(dictionary.count(charsToAdd) == 1){
-            foundChars = charsToAdd;
-        }else{
-            result.push_back(dictionary[foundChars]);
-            dictionary.insert(pair<string,int>(charsToAdd,size++));
-            foundChars = c;
-        }
-        
-    }
-
-    if(foundChars.length()>0){
-      result[resultIndex] = indexToAdd; //we dont need to reset resultIndex here, since it'll be declared again in the next encode() call
-    }
-
-    /*if (foundChars.compare("") != 0){
-        result.push_back(dictionary[foundChars]);
-    }
-
-    return result;
-
-    
-
-    
-}*/
 
 
 
