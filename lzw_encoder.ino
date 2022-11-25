@@ -12,8 +12,11 @@ int dictioIndex = 0;//serves to keep track of which dictio index to add custom s
 int size = 256;
 
 void setup(){
-  Serial.begin(115200);
+  
   pinMode(7,OUTPUT);
+  pinMode(2,OUTPUT);
+  
+  Serial.begin(115200);
   //Serial.println("insira a mensagem");
 }
 
@@ -22,7 +25,7 @@ void loop(){
     
   	
     int rlen = Serial.readBytesUntil('\n', buf, BUFFER_SIZE);
-    Serial.println("Ancoder should have been called atm...");
+    //Serial.println("Encoder should have been called atm...");
     time = 0;
 
     digitalWrite(7,HIGH);
@@ -32,7 +35,7 @@ void loop(){
     for(int i = 0; i < rlen; i++){
 
       	String charsToAdd = foundChars + buf[i];
-        Serial.println(charsToAdd);
+        //Serial.println(charsToAdd);
 
         if(charsToAdd.length()==1){
 
@@ -58,6 +61,7 @@ void loop(){
               result[resultIndex] = indexToAdd;
               dictionary[dictioIndex] = charsToAdd;
               foundChars = buf[i];
+              indexToAdd = (int) foundChars[0];
 
               resultIndex++;
               dictioIndex++;
@@ -77,9 +81,28 @@ void loop(){
     }
     
     for(int i = 0; i<=resultIndex; i++){
-      Serial.println(result[i]);
+      //Serial.println(result[i]);
     }
    
+    
+    for(int i = 0; i<=resultIndex; i++){
+    
+      if(result[i]>=1000){
+      	digitalWrite(2,HIGH);
+      	delay(50);
+      	Serial.write(result[i]-1000);
+      }else{
+      	digitalWrite(2,LOW);
+      	delay(50);
+      	Serial.write(result[i]);
+      }
+      
+  	
+    delay(100);
+  }
+    
+    
+    
   
 
   }
