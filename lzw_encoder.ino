@@ -1,13 +1,14 @@
-const int BUFFER_SIZE = 100;
-char buf[BUFFER_SIZE];
-long unsigned time = 0; 
+const int compressorSize = 100;
 
-int result[100];
+const int BUFFER_SIZE = compressorSize;
+char buf[BUFFER_SIZE];
+
+int result[compressorSize];
 int resultIndex = 0;//serves to keep track of which index to add results
 
 int indexToAdd = 0;//int code representing the symbol to be added to result, or just the index of a symbol found in the dictio
     
-String dictionary[100];
+String dictionary[compressorSize];
 int dictioIndex = 0;//serves to keep track of which dictio index to add custom symbol entries
 int size = 256;
 
@@ -26,7 +27,6 @@ void loop(){
   	
     int rlen = Serial.readBytesUntil('\n', buf, BUFFER_SIZE);
     //Serial.println("Encoder should have been called atm...");
-    time = 0;
 
     digitalWrite(7,HIGH);
     
@@ -46,7 +46,7 @@ void loop(){
         }else if(charsToAdd.length()>1){
 
           //we cant say for sure that a 2+ bytes symbol is present on lzw custom dictio, so we must test it ONLY IN THE CUSTOM SYMBOL ARRAY
-          for(int j = 0; j<100 ; j++){
+          for(int j = 0; j<compressorSize ; j++){
             
             if(charsToAdd == dictionary[j]){
               foundChars = charsToAdd;
