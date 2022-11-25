@@ -43,7 +43,7 @@ void decoder(){
 
           //here we are sure that its about a 1 byte char, that means, a symbol that belongs to ASCII8
           entry = (char) receiver[i];
-          Serial.println("lower than 256");
+          //Serial.println("lower than 256");
 
         }else if(receiver[i]>255){
 
@@ -51,17 +51,18 @@ void decoder(){
           
           if( (receiver[i]-1000) <= dictioIndex){
 
-              for(int j = 0; j<dictioIndex; j++){
+              for(int j = 0; j<=dictioIndex; j++){
                 if((receiver[i]-1000)==j){
+                  //Serial.println(dictionary[j]);
                   entry = dictionary[j];
                   break;
                 }
               }
-              Serial.println("higher than 256 and is at the dictio");
+              //Serial.println("higher than 256 and is at the dictio");
 
           }else{
             entry = chars + chars[0];
-            Serial.println("higher than 256 and it is not at the dictio");
+            //Serial.println("higher than 256 and it is not at the dictio");
           }
         }
         //Serial.print("resultado: ");
@@ -75,6 +76,9 @@ void decoder(){
         dictioIndex++;
         chars = entry;
     }
+  
+  Serial.print("resultado: ");
+  Serial.println(result);
 
 }
 
